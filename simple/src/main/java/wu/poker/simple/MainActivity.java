@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         view.setListener(new CountDownView.CompleteListener() {
             @Override
             public void onComplete() {
-                Toast.makeText(getApplicationContext(),"count down complete~~",Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(),"count down complete~~",Toast.LENGTH_LONG).show();
             }
         });
         view.setOnClickListener(new View.OnClickListener() {
