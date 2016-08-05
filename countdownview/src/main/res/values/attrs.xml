@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CountDownView">
+        <attr name="cd_stroke_color" format="color"/>
+        <attr name="cd_number_start_color" format="color"/>
+        <attr name="cd_number_end_color" format="color"/>
+        <attr name="cd_number" format="integer"/>
+        <attr name="cd_delay" format="integer"/>
+        <attr name="cd_stroke_width" format="dimension"/>
+        <attr name="cd_number_size" format="dimension"/>
+    </declare-styleable>
+</resources>
