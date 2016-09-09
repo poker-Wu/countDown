@@ -18,6 +18,8 @@ import android.view.animation.LinearInterpolator;
 
 /**
  * Created by pokerwu on 16-8-5.
+ *
+ * 一个简单的倒计时view
  */
 public class CountDownView extends View {
     //4dp
@@ -73,6 +75,9 @@ public class CountDownView extends View {
     }
 
     private void init() {
+
+        textRect = new Rect();
+
         strokePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         strokePaint.setStyle(Paint.Style.STROKE);
 
@@ -94,13 +99,11 @@ public class CountDownView extends View {
 
         int measureWidth;
         int measureHeight;
-        textRect = new Rect();
         numberPaint.setTextSize(numberSize);
         numberPaint.getTextBounds(String.valueOf(number),0,String.valueOf(number).length(), textRect);
         int textWidth = textRect.width();
         int textHeight = textRect.height();
-        //Log.e("onMeasure ---- >",textHeight +"---" + textWidth);
-
+        //文字和边距有16dp,draw的位置有4dp不draw任何东西
         measureHeight = measureWidth = Math.max(textHeight,textWidth)
                 + DensityUtil.dip2px(context,16) + (int)strokeWidth + padding;
 
@@ -125,11 +128,10 @@ public class CountDownView extends View {
         canvas.drawCircle(centerX,centerY,radius,bgPaint);
         //draw number
         Paint.FontMetrics fontMetrics = numberPaint.getFontMetrics();
-        //int baseline =
         canvas.drawText(String.valueOf(number - (int) progress),centerX,
                centerY - (fontMetrics.bottom -fontMetrics.top)/2 -fontMetrics.top,numberPaint);
         float endAngle = progress/ number * 360.0f;
-        //Log.e("onDraw -- >", "running:endAngle :" + endAngle);
+
         canvas.drawArc(strokeOval,0,endAngle,false,strokePaint);
     }
 
@@ -141,7 +143,6 @@ public class CountDownView extends View {
         centerY = h / 2.0f;
         strokeOval = new RectF(centerX-radius-strokeWidth,centerY-radius-strokeWidth,
                 centerX+radius+strokeWidth,centerY+radius+strokeWidth);
-        //Log.e("onSizeChanged --- >",w + "-----" + h);
     }
 
     public void startCount(){
