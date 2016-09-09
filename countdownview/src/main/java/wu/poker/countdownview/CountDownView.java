@@ -10,9 +10,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.SweepGradient;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -48,6 +48,8 @@ public class CountDownView extends View {
     private float centerY;
     private float radius;
     private RectF strokeOval;
+    //外围进度条着色器
+    private SweepGradient shader;
 
     public CountDownView(Context context) {
         this(context,null);
@@ -120,11 +122,12 @@ public class CountDownView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        strokePaint.setColor(strokeColor);
+        //strokePaint.setColor(strokeColor);
         strokePaint.setStrokeWidth(strokeWidth);
+        strokePaint.setShader(shader);
 
         numberPaint.setColor(color);
-
+        bgPaint.setShadowLayer(20,20,20,numberEndColor);
         canvas.drawCircle(centerX,centerY,radius,bgPaint);
         //draw number
         Paint.FontMetrics fontMetrics = numberPaint.getFontMetrics();
@@ -143,6 +146,7 @@ public class CountDownView extends View {
         centerY = h / 2.0f;
         strokeOval = new RectF(centerX-radius-strokeWidth,centerY-radius-strokeWidth,
                 centerX+radius+strokeWidth,centerY+radius+strokeWidth);
+        shader = new SweepGradient(centerX,centerY,numberStartColor,numberEndColor);
     }
 
     public void startCount(){
